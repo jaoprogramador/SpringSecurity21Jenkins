@@ -1,0 +1,14 @@
+1759735006619	Move compilation unit
+1759735030710	Move compilation units
+1759821772131	Move 'README.md' to 'login-auth-ms'
+1759822182690	Move compilation unit
+1759846885201	Rename package 'com.jao.login_auth_mscom.jao.login_auth_ms.infrastructure.adapter.out.persistence'
+1759846902403	Rename package 'com.jao.login_auth_ms.com.jao.login_auth_ms.infrastructure.adapter.out.persistence'
+1759847076630	Rename package 'com.jao.loginAuth.infrastructure.adapter.out.cache'
+1759847089682	Rename package 'com.jao.loginAuth.infrastructure.adapter.out.email'
+1759847101862	Rename package 'com.jao.loginAuth.infrastructure.config'
+1759847113673	Rename package 'com.jao.loginAuth.infrastructure.exception'
+1759847170012	Rename resource 'README.rd'
+1759853784689	Rename compilation unit 'EmailNotificationPort.java'
+1759913217227	Delete element
+1759913871912	Delete element

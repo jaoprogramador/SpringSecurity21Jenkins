@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<list key="findhistory">
+			<item value="resi"/>
+			<item value="findByEmail"/>
+			<item value="build"/>
+			<item value="proper"/>
+			<item value="org.springframework.ai&lt;"/>
+			<item value="dependencyManagement"/>
+			<item value="OAuth2AuthenticationProcessingException"/>
+			<item value="generateToken"/>
+			<item value="AppProperties"/>
+			<item value="com.jao.login_auth_ms.application.service.JwtService"/>
+			<item value="actuator"/>
+			<item value="JwtAuthenticationFilter "/>
+			<item value="passwordEncoder"/>
+			<item value="UsuarioRepositoryPort "/>
+			<item value="userDetailsService"/>
+		</list>
+	</section>
+</section>

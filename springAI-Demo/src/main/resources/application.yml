@@ -1,0 +1,8 @@
+#spring.application.name=springAI-Demo
+spring:
+  ai:
+    openai:
+      api-key: 4909 2831 3596 3227
+      chat:
+        options:
+          model: gpt-4
