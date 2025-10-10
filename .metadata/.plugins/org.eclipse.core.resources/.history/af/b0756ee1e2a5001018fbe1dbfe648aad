@@ -67,4 +67,4 @@ application.security.jwt.expiration=86400000
 # Opción 2: Crea un archivo llamado 'login-auth-ms.log' dentro de una carpeta 'logs'
 logging.config=classpath:logback-spring.xml
 logging.file.path=logs
-
+#logging.file.name=./logs/login-auth-ms.log
