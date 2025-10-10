@@ -1,10 +1,10 @@
 package com.jao.login_auth_ms.infrastructure.adapter.out.persistence;
 
 
-import com.jao.loginAuth.infrastructure.adapter.out.persistence.entity.UserJpaEntity;
-import com.jao.loginAuth.infrastructure.adapter.out.persistence.repository.UserJpaRepository;
 import com.jao.login_auth_ms.domain.model.User;
 import com.jao.login_auth_ms.domain.port.out.UserRepositoryPort;
+import com.jao.login_auth_ms.infrastructure.adapter.out.persistence.entity.UserJpaEntity;
+import com.jao.login_auth_ms.infrastructure.adapter.out.persistence.repository.UserJpaRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

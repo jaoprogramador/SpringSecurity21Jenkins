@@ -1,12 +1,13 @@
 package com.jao.login_auth_ms.domain.service;
 
-import com.jao.login_auth.infrastructure.config.JwtService;
 import com.jao.login_auth_ms.domain.model.LoginAttempt;
 import com.jao.login_auth_ms.domain.model.User;
 import com.jao.login_auth_ms.domain.port.in.LoginUseCase;
 import com.jao.login_auth_ms.domain.port.out.EmailNotificationPort;
 import com.jao.login_auth_ms.domain.port.out.LoginAttemptCachePort;
 import com.jao.login_auth_ms.domain.port.out.UserRepositoryPort;
+import com.jao.login_auth_ms.infrastructure.config.JwtService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
