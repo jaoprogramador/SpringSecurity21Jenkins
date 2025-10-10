@@ -15481,3 +15481,24 @@ org.eclipse.core.runtime.CoreException: Could not resolve artifact org.springfra
 2025-10-10 16:28:16,877 [Worker-60: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
 2025-10-10 16:28:17,089 [Worker-60: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
 2025-10-10 16:28:17,103 [Worker-60: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\WORKSPACES\workspaceLoginAuthMS21\login-auth-ms\src\test\resources
+2025-10-10 17:07:10,975 [Worker-68: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:07:11,142 [Worker-68: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:07:11,152 [Worker-68: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\WORKSPACES\workspaceLoginAuthMS21\login-auth-ms\src\test\resources
+2025-10-10 17:07:37,835 [Worker-70: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:07:37,848 [Worker-70: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:07:37,853 [Worker-70: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\WORKSPACES\workspaceLoginAuthMS21\login-auth-ms\src\test\resources
+2025-10-10 17:08:31,593 [Worker-72: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:08:31,619 [Worker-72: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:08:31,624 [Worker-72: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\WORKSPACES\workspaceLoginAuthMS21\login-auth-ms\src\test\resources
+2025-10-10 17:08:34,250 [Worker-75: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:08:34,308 [Worker-75: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:08:34,313 [Worker-75: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\WORKSPACES\workspaceLoginAuthMS21\login-auth-ms\src\test\resources
+2025-10-10 17:09:50,764 [Worker-74: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:09:50,795 [Worker-74: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:09:50,802 [Worker-74: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\WORKSPACES\workspaceLoginAuthMS21\login-auth-ms\src\test\resources
+2025-10-10 17:09:53,031 [Worker-70: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:09:53,058 [Worker-70: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:09:53,063 [Worker-70: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\WORKSPACES\workspaceLoginAuthMS21\login-auth-ms\src\test\resources
+2025-10-10 17:10:33,653 [Worker-72: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource from src\main\resources to target\classes
+2025-10-10 17:10:33,692 [Worker-72: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource from src\main\resources to target\classes
+2025-10-10 17:10:33,698 [Worker-72: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\WORKSPACES\workspaceLoginAuthMS21\login-auth-ms\src\test\resources

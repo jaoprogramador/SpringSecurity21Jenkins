@@ -67,6 +67,4 @@ application.security.jwt.expiration=86400000
 # Opcion 2: Crea un archivo llamado 'login-auth-ms.log' dentro de una carpeta 'logs'
 logging.config=classpath:logback-spring.xml
 logging.file.path=logs
-# Muestra todos los mensajes a nivel INFO o superior (INFO, WARN, ERROR)
-logging.level.root=INFO
 
