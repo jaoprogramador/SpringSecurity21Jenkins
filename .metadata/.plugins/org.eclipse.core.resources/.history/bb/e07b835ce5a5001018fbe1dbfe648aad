@@ -64,7 +64,7 @@ application.security.jwt.secret-key=m*S6L-Cc+i9w8J<6j2I5F+4aB7dE9gF2hK1lM
 # 24 horas en milisegundos
 application.security.jwt.expiration=86400000
 
-# Opcion 2: Crea un archivo llamado 'login-auth-ms.log' dentro de una carpeta 'logs'
+# Opción 2: Crea un archivo llamado 'login-auth-ms.log' dentro de una carpeta 'logs'
 logging.config=classpath:logback-spring.xml
 logging.file.path=logs
 
