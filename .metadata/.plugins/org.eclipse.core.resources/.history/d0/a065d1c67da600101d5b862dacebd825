@@ -69,5 +69,5 @@ logging.config=classpath:logback-spring.xml
 logging.file.path=logs
 # Muestra todos los mensajes a nivel INFO o superior (INFO, WARN, ERROR)
 logging.level.root=INFO, WARN, ERROR
-# JAO 20251011  
+# JAO 20251011
 
