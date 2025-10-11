@@ -14,5 +14,5 @@ spring.autoconfigure.exclude=\
   org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,\
   org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration
 
-# Logging minimo
+# Logging mínimo
 logging.level.root=WARN
