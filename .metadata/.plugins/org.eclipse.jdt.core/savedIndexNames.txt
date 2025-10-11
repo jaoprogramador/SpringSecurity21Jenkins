@@ -69,7 +69,6 @@ INDEX VERSION 1.134+C:\Users\user\Documents\Juan PC guillermo SpringAngularAWS\W
 2121907481.index
 1043148837.index
 1053050207.index
-488738820.index
 3658192678.index
 2223711930.index
 2372479864.index
