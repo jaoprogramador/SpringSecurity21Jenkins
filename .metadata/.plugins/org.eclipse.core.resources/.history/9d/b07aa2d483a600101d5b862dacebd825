@@ -1,0 +1,12 @@
+spring.application.name=login-auth-ms-test
+
+# Usa una base en memoria (H2)
+
+
+# Desactiva Redis y Mail para pruebas
+spring.autoconfigure.exclude=\
+  org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,\
+  org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration
+
+# Logging minimo
+logging.level.root=WARN

@@ -5,7 +5,10 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.6</version> <relativePath/> </parent>
+        <!--<version>3.5.6</version> -->
+        <version>3.4.5</version>
+        <relativePath/> 
+    </parent>
     <groupId>com.jao</groupId>
     <artifactId>login-auth-ms</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -100,6 +103,21 @@
 		    <version>0.12.5</version>
 		    <scope>runtime</scope>
 		</dependency>
+		
+		<!-- Logging JSON para Logstash/ELK -->
+		<dependency>
+		    <groupId>net.logstash.logback</groupId>
+		    <artifactId>logstash-logback-encoder</artifactId>
+		    <version>7.4</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <scope>test</scope>
+		</dependency>
+
+
     </dependencies>
 
    <build>

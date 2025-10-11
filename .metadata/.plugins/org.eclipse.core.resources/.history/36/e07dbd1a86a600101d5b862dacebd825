@@ -1,0 +1,22 @@
+spring.application.name=login-auth-ms-test
+
+# Usa una base en memoria (H2)
+spring.datasource.url=jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql=false
+
+# Desactiva Redis y Mail para pruebas
+#spring.autoconfigure.exclude=\
+#  org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,\
+#  org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration,\
+#  org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration
+spring.autoconfigure.exclude=\
+org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,\
+org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+# Logging minimo
+logging.level.root=WARN

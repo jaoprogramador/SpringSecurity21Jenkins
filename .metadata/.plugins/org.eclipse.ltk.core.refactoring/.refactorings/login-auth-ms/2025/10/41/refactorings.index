@@ -12,3 +12,10 @@
 1759853784689	Rename compilation unit 'EmailNotificationPort.java'
 1759913217227	Delete element
 1759913871912	Delete element
+1760089454729	Delete element
+1760089546895	Rename package 'com.jao.login_auth.infrastructure.adapter.out.cache'
+1760089573548	Rename package 'com.jao.login_auth.infrastructure.adapter.out.email'
+1760089590524	Rename package 'com.jao.login_auth.infrastructure.config'
+1760089608423	Rename package 'com.jao.login_auth.infrastructure.exception'
+1760089633079	Rename package 'com.jao.loginAuth.infrastructure.adapter.out.persistence.entity'
+1760089661187	Rename package 'com.jao.loginAuth.infrastructure.adapter.out.persistence.repository'

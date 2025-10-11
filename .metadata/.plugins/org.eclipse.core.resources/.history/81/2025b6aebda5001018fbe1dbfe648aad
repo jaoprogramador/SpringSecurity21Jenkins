@@ -1,0 +1,5 @@
+package com.jao.login_auth.infrastructure.adapter.out.cache;
+
+public class LoginAttemptCacheAdapter {
+
+}

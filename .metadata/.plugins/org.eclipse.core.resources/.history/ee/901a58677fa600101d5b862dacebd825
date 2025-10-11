@@ -1,0 +1,73 @@
+spring.application.name=login-auth-ms
+
+# CONFIGURACION DE POSTGRESQL
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=admin123
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+# CONFIGURACION DE JPA/HIBERNATE
+spring.jpa.hibernate.ddl-auto=update
+# Actualiza el esquema de la DB al inicio
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+# CONFIGURACIN DE LOGGING (SLF4J)
+logging.level.com.jao.loginAuth=INFO
+logging.level.org.springframework.web=WARN
+
+# CONFIGURACIN DE REDIS
+spring.data.redis.host=localhost
+spring.data.redis.port=6379
+# spring.data.redis.password=
+
+# CONFIGURACIN DE SPRING MAIL (SMTP)
+# Reemplace estos valores con su servidor SMTP real
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=tu_email_de_envio@gmail.com 
+spring.mail.password=tu_password_o_token_de_aplicacion
+spring.mail.protocol=smtp
+spring.mail.test-connection=false
+
+# PROPIEDADES SMTP
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+# Esto ayuda si hay problemas de conectividad con servidores como Gmail
+spring.mail.properties.mail.smtp.connectiontimeout=5000
+spring.mail.properties.mail.smtp.timeout=5000
+spring.mail.properties.mail.smtp.writetimeout=5000
+
+# CONFIGURACIoN DEL CIRCUIT BREAKER PARA LA BASE DE DATOS (POSTGRES)
+resilience4j.circuitbreaker.instances.postgresDb.failureRateThreshold=50 
+# Abrir si el 50% de las llamadas fallan
+resilience4j.circuitbreaker.instances.postgresDb.slowCallRateThreshold=100
+# No relevante aqu�, pero puedes usarlo
+resilience4j.circuitbreaker.instances.postgresDb.waitDurationInOpenState=60s
+# Esperar 60 segundos antes de pasar a medio-abierto
+resilience4j.circuitbreaker.instances.postgresDb.slidingWindowSize=10 
+# Base de 10 llamadas para calcular el ratio
+resilience4j.circuitbreaker.instances.postgresDb.registerHealthIndicator=true
+
+# CONFIGURACIoN DEL CIRCUIT BREAKER PARA LA CACHE (REDIS)
+resilience4j.circuitbreaker.instances.redisCache.failureRateThreshold=70 
+# Umbral mas alto, ya que la cache suele ser m�s rApida
+resilience4j.circuitbreaker.instances.redisCache.waitDurationInOpenState=30s
+# Esperar 30 segundos
+resilience4j.circuitbreaker.instances.redisCache.slidingWindowSize=5 
+# Base de 5 llamadas
+resilience4j.circuitbreaker.instances.redisCache.registerHealthIndicator=true
+
+# CONFIGURACIoN JWT
+# Genera una clave segura base64 de al menos 32 caracteres (ej: usar un generador en linea)
+application.security.jwt.secret-key=m*S6L-Cc+i9w8J<6j2I5F+4aB7dE9gF2hK1lM
+# 24 horas en milisegundos
+application.security.jwt.expiration=86400000
+
+# Opcion 2: Crea un archivo llamado 'login-auth-ms.log' dentro de una carpeta 'logs'
+logging.config=classpath:logback-spring.xml
+logging.file.path=logs
+# Muestra todos los mensajes a nivel INFO o superior (INFO, WARN, ERROR)
+logging.level.root=INFO, WARN, ERROR
+# JAO 20251011  
+
