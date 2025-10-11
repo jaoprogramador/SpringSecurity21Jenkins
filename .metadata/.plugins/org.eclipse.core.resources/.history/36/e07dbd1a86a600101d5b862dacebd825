@@ -9,7 +9,7 @@ spring.datasource.password=
 spring.jpa.hibernate.ddl-auto=create-drop
 spring.jpa.show-sql=false
 
-# Desactiva Redis y Mail para pruebas 
+# Desactiva Redis y Mail para pruebas
 #spring.autoconfigure.exclude=\
 #  org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,\
 #  org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration,\
