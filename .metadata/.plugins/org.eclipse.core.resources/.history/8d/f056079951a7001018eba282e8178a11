@@ -1,0 +1,93 @@
+package com.jao.login_auth_ms;
+
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import com.jao.login_auth_ms.domain.service.UserManagementServiceImpl; 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jao.login_auth_ms.application.dto.LoginRequest;
+import com.jao.login_auth_ms.domain.port.in.LoginUseCase;
+import com.jao.login_auth_ms.infrastructure.adapter.in.LoginController;
+import com.jao.login_auth_ms.infrastructure.adapter.out.cache.RedisLoginAttemptAdapter;
+
+
+// @WebMvcTest enfoca el test solo en el Controller y la capa de Web.
+// Es más rápido que @SpringBootTest y solo carga los beans necesarios.
+@WebMvcTest(
+	    controllers = LoginController.class, 
+	    excludeAutoConfiguration = {
+	        SecurityAutoConfiguration.class, 
+	        DataSourceAutoConfiguration.class, 
+	        HibernateJpaAutoConfiguration.class ,
+	        JpaRepositoriesAutoConfiguration.class,
+	        RedisAutoConfiguration.class, 
+		    RedisRepositoriesAutoConfiguration.class,
+		    MailSenderAutoConfiguration.class 
+
+
+	    } 
+	)
+@ActiveProfiles("test")
+public class LoginControllerIntegrationTest {
+
+    @Autowired
+    private MockMvc mockMvc; // Para simular las peticiones HTTP
+
+    @Autowired
+    private ObjectMapper objectMapper; // Para convertir DTOs a JSON
+
+    // MOCKEAMOS la dependencia de la capa de dominio
+    // Esto asegura que el test solo prueba el Controller y no la lógica de servicio.
+    @MockBean
+    private LoginUseCase loginUseCase;
+
+    private final String LOGIN_URL = "/api/v1/auth/login";
+    @MockBean
+    private UserManagementServiceImpl userManagementServiceImpl;
+    @MockBean
+    private RedisLoginAttemptAdapter redisLoginAttemptAdapter; 
+    // -------------------------------------------------------------
+    // CASO DE PRUEBA 1: Login Exitoso (200 OK y Token devuelto)
+    // -------------------------------------------------------------
+    @Test
+    void login_shouldReturnTokenAnd200_whenCredentialsAreValid() throws Exception {
+        // ARRANGE (Configuración)
+		/*
+		 * String expectedToken = "mocked.jwt.token.12345"; LoginRequest request = new
+		 * LoginRequest("test@example.com", "password123");
+		 * 
+		 * // Simular el comportamiento del Use Case: cuando se llama, debe devolver el
+		 * token. when(loginUseCase.authenticate(anyString(), anyString()))
+		 * .thenReturn(expectedToken);
+		 * 
+		 * // ACT & ASSERT (Ejecución y Verificación) mockMvc.perform(post(LOGIN_URL)
+		 * .contentType(MediaType.APPLICATION_JSON)
+		 * .content(objectMapper.writeValueAsString(request))) // Convertir DTO a JSON
+		 * 
+		 * // 1. Verificar el código de estado HTTP .andExpect(status().isOk()) //
+		 * Esperamos un 200 OK
+		 * 
+		 * // 2. Verificar el contenido de la respuesta (el token)
+		 * .andExpect(content().string(expectedToken));
+		 */
+    }
+
+    
+}

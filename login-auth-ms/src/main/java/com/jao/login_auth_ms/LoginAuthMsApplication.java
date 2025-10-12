@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.jao.login_auth_ms")
 @EnableJpaRepositories(basePackages = "com.jao.login_auth_ms.infrastructure.adapter.out.persistence.repository") 
 @EntityScan(basePackages = "com.jao.login_auth_ms.infrastructure.adapter.out.persistence.entity") 
 @ComponentScan(basePackages = {

@@ -1,0 +1,40 @@
+// -------------------------------------------------------------
+    // CASO DE PRUEBA 2: Credenciales Inválidas (Simular error de Dominio)
+    // -------------------------------------------------------------
+    @Test
+    void login_shouldReturn401Or400_whenCredentialsAreInvalid() throws Exception {
+        // ARRANGE (Configuración)
+        LoginRequest request = new LoginRequest("wrong@example.com", "wrongPassword");
+
+        // Simular el comportamiento del Use Case: si falla la autenticación, lanza una RuntimeException
+        when(loginUseCase.authenticate(anyString(), anyString()))
+                .thenThrow(new RuntimeException("Credenciales inválidas"));
+
+        // ACT & ASSERT (Ejecución y Verificación)
+        // Nota: Si no tienes un @ControllerAdvice global para capturar RuntimeException,
+        // Spring puede devolver 500. Asumimos un 400/401 es capturado por un ControllerAdvice.
+        // Dado que el servicio lanza una RuntimeException con el mensaje 'Credenciales inválidas',
+        // el test verifica que el status NO es 200 (podría ser 400, 401 o 500).
+        mockMvc.perform(post(LOGIN_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().is4xxClientError()); // Esperamos un 4xx (Bad Request/Unauthorized)
+    }
+
+    // -------------------------------------------------------------
+    // CASO DE PRUEBA 3: Validación del DTO (Request Body Inválido)
+    // -------------------------------------------------------------
+    // Nota: Esto requiere que LoginRequest tenga anotaciones como @NotBlank o @Email.
+    @Test
+    void login_shouldReturn400_whenEmailIsMissing() throws Exception {
+        // ARRANGE (Configuración)
+        // Asumimos que la clase LoginRequest tiene un @NotBlank en el campo email.
+        LoginRequest invalidRequest = new LoginRequest(null, "password123");
+
+        // ACT & ASSERT (Ejecución y Verificación)
+        // La anotación @Valid en el Controller debería causar un 400 BAD REQUEST
+        mockMvc.perform(post(LOGIN_URL)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(invalidRequest)))
+                .andExpect(status().isBadRequest()); // Esperamos 400 BAD REQUEST
+    }

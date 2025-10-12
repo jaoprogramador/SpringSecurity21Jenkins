@@ -1,0 +1,38 @@
+package com.jao.login_auth_ms;
+
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jao.login_auth_ms.application.dto.LoginRequest;
+import com.jao.login_auth_ms.domain.port.in.LoginUseCase;
+import com.jao.login_auth_ms.infrastructure.adapter.in.LoginController;
+
+
+// @WebMvcTest enfoca el test solo en el Controller y la capa de Web.
+// Es más rápido que @SpringBootTest y solo carga los beans necesarios.
+@WebMvcTest(
+	    controllers = LoginController.class, 
+	    excludeAutoConfiguration = {
+	        SecurityAutoConfiguration.class, 
+	        DataSourceAutoConfiguration.class, 
+	        HibernateJpaAutoConfiguration.class  
+	    } 
+	)
+public class LoginControllerIntegrationTest {
+
+    
+}

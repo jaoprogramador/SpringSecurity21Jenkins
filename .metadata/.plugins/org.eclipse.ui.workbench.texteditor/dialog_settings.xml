@@ -4,6 +4,7 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="false"/>
 		<list key="findhistory">
+			<item value="isBlocked"/>
 			<item value="jwt.expiration"/>
 			<item value="parent"/>
 			<item value="com.jao.login_auth_ms.infrastructure.adapter.out.persistence.repository"/>
@@ -18,7 +19,6 @@
 			<item value="OAuth2AuthenticationProcessingException"/>
 			<item value="generateToken"/>
 			<item value="AppProperties"/>
-			<item value="com.jao.login_auth_ms.application.service.JwtService"/>
 		</list>
 	</section>
 </section>

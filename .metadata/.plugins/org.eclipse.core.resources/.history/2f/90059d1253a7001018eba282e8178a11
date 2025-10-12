@@ -1,0 +1,101 @@
+package com.jao.login_auth_ms;
+
+import com.jao.login_auth_ms.domain.model.User;
+import com.jao.login_auth_ms.domain.port.out.UserRepositoryPort;
+import com.jao.login_auth_ms.domain.port.out.LoginAttemptPort;
+import com.jao.login_auth_ms.application.usecase.LoginUseCaseImpl;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+// 1. Usa @ExtendWith para habilitar Mockito en JUnit 5
+@ExtendWith(MockitoExtension.class)
+public class LoginUseCaseImplTest {
+
+    // 2. Mockea las dependencias de la clase bajo prueba. Spring Boot NO se carga.
+    @Mock
+    private UserRepositoryPort userRepositoryPort;
+
+    @Mock
+    private LoginAttemptPort loginAttemptPort;
+
+    // 3. Inyecta los mocks en la clase que queremos probar.
+    // Mockito crea una instancia real de LoginUseCaseImpl y le pasa los mocks anteriores.
+    @InjectMocks
+    private LoginUseCaseImpl loginUseCase;
+
+    // Datos de prueba
+    private final String VALID_USERNAME = "user@example.com";
+    private final String VALID_PASSWORD = "hashedPassword123";
+    private User testUser;
+
+    @BeforeEach
+    void setUp() {
+        // Asume que tu objeto User tiene un campo para la contraseña cifrada
+        testUser = new User(VALID_USERNAME, VALID_PASSWORD); 
+    }
+
+    @Test
+    void login_shouldReturnTrue_whenCredentialsAreValid() {
+        // Configuración (Arrange): Define el comportamiento de los Mocks
+        
+        // 1. Simular que el usuario NO está bloqueado
+        when(loginAttemptPort.isBlocked(VALID_USERNAME)).thenReturn(false);
+        
+        // 2. Simular que el repositorio encuentra al usuario
+        when(userRepositoryPort.findByUsername(VALID_USERNAME)).thenReturn(Optional.of(testUser));
+
+        // Acción (Act): Ejecutar el método a probar
+        boolean result = loginUseCase.login(VALID_USERNAME, VALID_PASSWORD);
+
+        // Verificación (Assert): Comprobar el resultado y las interacciones con los Mocks
+        assertTrue(result, "El login debería ser exitoso con credenciales válidas.");
+        
+        // Verificar que se registró el login exitoso
+        verify(loginAttemptPort, times(1)).registerSuccessfulLogin(VALID_USERNAME); 
+        
+        // Verificar que NO se registró un login fallido
+        verify(loginAttemptPort, never()).registerFailedLogin(anyString()); 
+    }
+
+    @Test
+    void login_shouldReturnFalse_whenPasswordIsInvalid() {
+        // Configuración (Arrange)
+        String INVALID_PASSWORD = "wrongPassword";
+        when(loginAttemptPort.isBlocked(VALID_USERNAME)).thenReturn(false);
+        when(userRepositoryPort.findByUsername(VALID_USERNAME)).thenReturn(Optional.of(testUser));
+
+        // Acción (Act)
+        boolean result = loginUseCase.login(VALID_USERNAME, INVALID_PASSWORD);
+
+        // Verificación (Assert)
+        assertFalse(result, "El login debería fallar con contraseña inválida.");
+        verify(loginAttemptPort, times(1)).registerFailedLogin(VALID_USERNAME);
+        verify(loginAttemptPort, never()).registerSuccessfulLogin(anyString());
+    }
+
+    @Test
+    void login_shouldThrowException_whenUserIsBlocked() {
+        // Configuración (Arrange)
+        // Simular que el puerto de intentos de login reporta que el usuario está bloqueado
+        when(loginAttemptPort.isBlocked(VALID_USERNAME)).thenReturn(true);
+
+        // Verificación (Assert): Usar assertThrows para comprobar la excepción
+        assertThrows(RuntimeException.class, () -> {
+            loginUseCase.login(VALID_USERNAME, VALID_PASSWORD);
+        }, "Debería lanzar una excepción cuando el usuario está bloqueado.");
+
+        // Verificar que el repositorio NO fue consultado (optimización y aislamiento)
+        verify(userRepositoryPort, never()).findByUsername(anyString());
+    }
+}
+
