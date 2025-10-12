@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
-//JAO
+
 // Habilita el soporte de Mockito para JUnit 5
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
