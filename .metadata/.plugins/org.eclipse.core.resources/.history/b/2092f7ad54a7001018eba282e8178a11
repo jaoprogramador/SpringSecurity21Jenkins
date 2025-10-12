@@ -1,0 +1,35 @@
+package com.jao.login_auth_ms.infrastructure.adapter.in;
+import com.jao.login_auth_ms.application.dto.UserResponse;
+import com.jao.login_auth_ms.domain.model.User;
+import com.jao.login_auth_ms.domain.port.in.UserManagementPort;
+import com.jao.login_auth_ms.infrastructure.adapter.in.UserController;
+//import com.jao.login_auth_ms.infrastructure.adapter.in.dto.UserResponse; 
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+// Habilita el soporte de Mockito para JUnit 5
+@ExtendWith(MockitoExtension.class)
+public class UserControllerTest {
+
+    
+}
+
+
+
+
+
+
+
+

@@ -22,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 
     private final LoginUseCase loginUseCase; // Inyección del Puerto de Dominio
+    
+    
     /**
      * Endpoint para iniciar sesión. Aplica validación de entrada (@Valid).
      * @param request DTO con email y contraseña.

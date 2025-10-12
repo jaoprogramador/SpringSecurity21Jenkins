@@ -1,0 +1,90 @@
+package com.jao.login_auth_ms.infrastructure.adapter.in;
+
+import com.jao.login_auth_ms.domain.model.User;
+import com.jao.login_auth_ms.domain.port.in.UserManagementPort; // Asumimos esta es la interfaz
+import com.jao.login_auth_ms.infrastructure.adapter.in.UserController; // Tu Controller
+import com.jao.login_auth_ms.infrastructure.adapter.in.dto.UserResponse; // Tu DTO de respuesta
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+
+// 1. Habilita el soporte de Mockito para JUnit 5
+@ExtendWith(MockitoExtension.class)
+public class UserControllerTest {
+
+    // 2. Mockea la dependencia de la lógica de negocio (Puerto de entrada o UseCase)
+    @Mock
+    private UserManagementPort userManagementPort;
+
+    // 3. Mockea la dependencia de mapeo (ModelMapper)
+    @Mock
+    private ModelMapper modelMapper;
+
+    // 4. Inyecta los mocks en el controlador, la clase bajo prueba
+    @InjectMocks
+    private UserController userController;
+
+    @Test
+    void getAll_shouldReturnListOfUsersAndHttpStatus200() {
+        // --- ARRANGE (Configuración) ---
+
+        // 1. Crea datos simulados del Dominio (Domain Model)
+        User user1 = new User("user1@mail.com", "hashed1", "User One");
+        User user2 = new User("user2@mail.com", "hashed2", "User Two");
+        List<User> mockUsers = Arrays.asList(user1, user2);
+
+        // 2. Crea datos simulados del DTO de Respuesta
+        UserResponse response1 = new UserResponse("User One", "user1@mail.com");
+        UserResponse response2 = new UserResponse("User Two", "user2@mail.com");
+
+        // 3. Define el comportamiento del puerto (UserManagementPort)
+        // Cuando se llama a findAll(), devuelve la lista de Domain Models
+        when(userManagementPort.findAll()).thenReturn(mockUsers);
+
+        // 4. Define el comportamiento del ModelMapper
+        // Para cada mapeo de User a UserResponse, debe devolver el Response DTO simulado.
+        when(modelMapper.map(user1, UserResponse.class)).thenReturn(response1);
+        when(modelMapper.map(user2, UserResponse.class)).thenReturn(response2);
+
+        // --- ACT (Acción) ---
+        // Llama al método del controlador
+        ResponseEntity<List<UserResponse>> responseEntity = userController.getAll();
+
+        // --- ASSERT (Verificación) ---
+
+        // 1. Verifica el Código de Estado HTTP
+        assertEquals(200, responseEntity.getStatusCodeValue(), 
+                     "Debería devolver un código de estado 200 OK.");
+
+        // 2. Verifica el Contenido de la Respuesta (la lista de DTOs)
+        List<UserResponse> actualResponseList = responseEntity.getBody();
+        
+        // Verifica que la lista no es nula y tiene el tamaño correcto
+        assertEquals(2, actualResponseList.size(), 
+                     "La lista de respuesta debe contener 2 elementos.");
+        
+        // Verifica que el contenido de la lista es el esperado
+        assertEquals(response1.getName(), actualResponseList.get(0).getName());
+        assertEquals(response2.getName(), actualResponseList.get(1).getName());
+
+        // 3. Verifica las interacciones con los Mocks (el controlador hizo su trabajo)
+        
+        // Verifica que el puerto de gestión fue llamado exactamente una vez
+        verify(userManagementPort, times(1)).findAll();
+        
+        // Verifica que el ModelMapper fue llamado exactamente dos veces (uno por cada User)
+        verify(modelMapper, times(mockUsers.size())).map(any(User.class), eq(UserResponse.class));
+    }
+}
+

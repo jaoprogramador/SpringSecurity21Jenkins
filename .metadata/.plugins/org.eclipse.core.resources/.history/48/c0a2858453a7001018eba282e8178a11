@@ -1,0 +1,5 @@
+package com.jao.login_auth_ms.infrastructure.adapter.in;
+
+public class UserControllerTest {
+
+}
