@@ -1,0 +1,92 @@
+1.- crear microservicio http://localhost:8080/api/users
+2.- clen install
+3.- crear un contenedor de mysql BD
+	docker run -d --name mysqldbUSERS -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mysqldbUSERS -p 3305:3306 mysql:8.1
+4.- crear en el contenedor la bd:(entrar contenedor y crear bd)
+		docker exec -it mysqldbUSERS mysql -u root -p
+		
+		CREATE DATABASE mysqldbUSERS;
+		EXIT;
+5.- arrancar microservicio y probarlo en localhost:8080/api/users
+6.- Instalamos minikube desde powerShelADMIN: 
+	curl.exe -Lo minikube.exe https://storage.googleapis.com/minikube/releases/latest/minikube-windows-amd64.exe
+	Lanzamos minicube start en el cmd
+6.- dockerizar con una imagen la api despues de crear el dockerfile o imagen
+	docker build -t users-api:3.5.6 .
+	
+7.-creamos un fichero de servicio a BD para desplegar en kubernetes
+8.- arrancamos minikube: minikube start
+9.- contruimos el servicio de bd en kubernetes
+	kubectl apply -f k8s/mysql-init-configmap.yaml
+	kubectl apply -f k8s/db-deployment.yaml 
+10.- consultamos que se ha deployado bien 
+	crear mysql-deployment.yaml archivo de configuración de Kubernetes que define cómo debe ejecutarse tu base de datos MySQL dentro del clúster de Minikube
+11.- Crear una imagen de docker del api users
+	docker build -t spring-users-api-k8s:1.0 .
+	
+12.- creamos un fichero para desplegar el servicio del api spring en k8s
+	kubectl apply -f k8s/app-deployment.yaml 
+13.-cargamos la imagen en minikube
+	minikube image load spring-users-api-k8s:1.0
+14.- kubectl get deployments
+	kubectl get pods
+	kubectl logs NAME_PODS PARA VER LOS LOGS DEL POD O INSTANCIA
+	PARA VER LOS PUERTOS DONDE SE EJECUTAN LOS PODS
+	kubectl get svc
+	PARA VER LA IP A CONSULTAR 192.168.49.2:32048/api/users
+	minikube ip
+	PARA IR AL DASHBOARD
+	minikube dashboard
+15:REDESPLIEGUE
+	kubectl rollout restart deployment springboot-crud-deployment
+	
+16.- conectar al pod de bd
+	>kubectl get pods
+		NAME                                          READY   STATUS    RESTARTS   AGE
+		mysql-6559cd8fd7-6b9jf                        1/1     Running   0          3m56s
+
+	kubectl exec -it mysql-7d6557f7ff-t4dj7 -- sh
+	 mysql -u root -p
+	 root
+		SHOW DATABASES;
+		USE my-service-db;
+		SHOW TABLES;
+
+Si se desconecta porque el contexto esta desincronizado y algunos servicios caidos:
+=====================================================================================
+minikuve status
+-----------------------kubelet: Stopped
+-----------------------apiserver: Stopped
+minikube ssh
+sudo systemctl status kubelet
+sudo systemctl restart kubelet
+sudo systemctl status kubelet
+sudo systemctl restart kube-apiserver
+exit
+Si quiero asignarle mas RAM a K8s
+==================================
+minikube stop
+minikube config set memory 4096
+minikube config set cpus 3
+minikube delete
+minikube start
+
+PARA BORRAR UN PODS SI NO COGE CAMBIOS
+=======================================
+kubectl delete deployment mysql
+kubectl delete deployment springboot-crud-deployment
+PARA VER LOS LOGS EN REAL
+==============================
+kubectl logs -f deployment/springboot-crud-deployment
+=========================================================
+docker build -t users-api:3.5.6 .
+docker build -t spring-users-api-k8s:1.0 .
+minikube image load spring-users-api-k8s:1.0
+kubectl apply -f k8s/app-deployment.yaml 
+kubectl apply -f k8s/db-deployment.yaml 
+
+kubectl get pods
+VER VARIABLES DEL ENTORNO 
+===========================
+kubectl exec -it springboot-crud-deployment-7d45b7fc47-tkrqg -- env
+	

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-init-config
+data:
+  # El nombre del script DEBE terminar en .sql para que MySQL lo ejecute.
+  # El nombre 01-create-user.sql asegura que se ejecute primero.
+  01-create-user.sql: |
+      CREATE USER IF NOT EXISTS 'myapp'@'%' IDENTIFIED BY 'myapp123';
+      GRANT ALL PRIVILEGES ON `mysqldbUSERS`.* TO 'myapp'@'%'; # <--- ¡AJUSTAR!
+      FLUSH PRIVILEGES;

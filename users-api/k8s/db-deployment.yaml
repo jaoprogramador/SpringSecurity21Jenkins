@@ -1,0 +1,104 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  labels:
+    app: mysql
+    tier: database
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+# Configure 'Deployment' of mysql server
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    tier: database
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+      tier: database
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mysql
+        tier: database
+    spec:
+      containers:
+        - image: mysql:8.1
+          #args:VERSION ANTIGUA Y DA ERROR 
+          #  - "--ignore-db-dir=lost+found"
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root 
+
+            - name: MYSQL_DATABASE
+              value: mysqldbUSERS
+            - name: MYSQL_USER
+              value: "myapp"
+            - name: MYSQL_PASSWORD
+              value: "myapp123"
+            - name: MYSQL_ROOT_HOST
+              value: "%"
+
+          ports:
+            - containerPort: 3306
+              name: mysql
+          args:
+            - "--bind-address=0.0.0.0"  #ACEPTA CONEXIONES DE CUALQUIER IP
+            - "--skip-name-resolve"
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+            #- name: init-scripts
+            #  mountPath: /docker-entrypoint-initdb.d/  
+          readinessProbe:
+            exec:
+              command:
+                - mysql
+                - -h
+                - localhost
+                - -u
+                - root
+                - -proot
+                - -e
+                - "SELECT 1;"
+            initialDelaySeconds: 15
+            periodSeconds: 10
+
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+        #- name: init-scripts
+        #  configMap:
+        #    name: mysql-init-config # Nombre del ConfigMap
+
+---
+# Define a 'Service' To Expose mysql to Other Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    tier: database
+spec:
+  #type: ClusterIP   # ✅ Es el tipo correcto de servicio interno
+  ports:
+    - port: 3306
+      targetPort: 3306
+  selector:
+    app: mysql
+    tier: database
+  clusterIP: None

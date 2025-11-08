@@ -1,0 +1,6 @@
+target
+.git
+.idea
+*.iml
+.DS_Store
+!target/users-api-0.0.1-SNAPSHOT.jar

@@ -4,21 +4,21 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="false"/>
 		<list key="findhistory">
-			<item value="isBlocked"/>
-			<item value="jwt.expiration"/>
-			<item value="parent"/>
-			<item value="com.jao.login_auth_ms.infrastructure.adapter.out.persistence.repository"/>
-			<item value="LoginAttemptCachePort"/>
-			<item value="log"/>
-			<item value="resi"/>
-			<item value="findByEmail"/>
-			<item value="build"/>
-			<item value="proper"/>
-			<item value="org.springframework.ai&lt;"/>
-			<item value="dependencyManagement"/>
-			<item value="OAuth2AuthenticationProcessingException"/>
-			<item value="generateToken"/>
-			<item value="AppProperties"/>
+			<item value="DASH"/>
+			<item value="ROOT"/>
+			<item value="app: springboot-k8s-mysql"/>
+			<item value="url: jdbc:mysql://${DB_HOST}/${DB_NAME}?useSSL=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true"/>
+			<item value="reload"/>
+			<item value="readinessProbe"/>
+			<item value="ait-for-mysql"/>
+			<item value="svc"/>
+			<item value="http"/>
+			<item value="variables"/>
+			<item value="exec"/>
+			<item value="DB_USER"/>
+			<item value="initContainers"/>
+			<item value="args"/>
+			<item value="myapp"/>
 		</list>
 	</section>
 </section>

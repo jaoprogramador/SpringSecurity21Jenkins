@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: myapp
+
+  datasource:
+    #url: jdbc:mysql://localhost:3305/mysqldb?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://${DB_HOST}/${DB_NAME}
+    #username: root
+    #password: rootpass
+    username: ${DB_USER}
+    password: ${DB_PASS}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update  # Flyway gestiona los cambios
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+  sql:
+    init:
+      mode: never
+
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: false          
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
