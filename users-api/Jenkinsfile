@@ -5,6 +5,7 @@
  * Requiere que el contenedor de Jenkins tenga acceso al Docker Daemon (DooD).
  */
 pipeline {
+    
     // -----------------------------------------------------------
     // AGENTE: Usamos una imagen de Maven/Java para compilar el código.
     // -----------------------------------------------------------
@@ -13,7 +14,6 @@ pipeline {
             // Imagen ligera con Java y Maven para la compilación. 
             image 'maven:3.8.6-openjdk-17-slim' 
             // Monta el socket de Docker del host para que la etapa 'Docker Build' pueda ejecutarse.
-            // Esto resuelve el error "Cannot connect to the Docker daemon".
             args '-v /var/run/docker.sock:/var/run/docker.sock' 
         }
     }
@@ -35,13 +35,11 @@ pipeline {
     // -----------------------------------------------------------
     stages {
         
-        stage('1. Checkout SCM') {
-            steps {
-                echo 'Obteniendo código del repositorio Git.'
-            }
-        }
+        // **IMPORTANTE:** La etapa de 'Checkout SCM' ha sido ELIMINADA.
+        // El Pipeline Declarativo realiza el checkout automáticamente antes de la primera etapa,
+        // usando la configuración que ya corregiste en Jenkins.
         
-        stage('2. Build, Tests y Empaquetado') {
+        stage('1. Build, Tests y Empaquetado') {
             steps {
                 echo 'Iniciando compilación y tests unitarios con Maven...'
                 // Limpia, compila, ejecuta tests y empaqueta el JAR.
@@ -55,7 +53,7 @@ pipeline {
             }
         }
         
-        stage('3. Construir Imagen Docker') {
+        stage('2. Construir Imagen Docker') {
             steps {
                 script {
                     // 1. Obtiene la versión actual del proyecto desde el pom.xml
@@ -73,7 +71,7 @@ pipeline {
             }
         }
         
-        stage('4. Despliegue Local (Opcional)') {
+        stage('3. Despliegue Local (Opcional)') {
             steps {
                 script {
                     // Detiene y elimina cualquier contenedor existente con este nombre
@@ -93,8 +91,9 @@ pipeline {
     // -----------------------------------------------------------
     post {
         always {
-            // Limpia el workspace al final de la ejecución.
-            deleteDir()
+            // Se COMENTA el deleteDir() para evitar el error de 'MissingContextVariableException'
+            // en pipelines con agentes Docker.
+            // deleteDir() 
             echo 'Pipeline de CI/CD para Java Finalizado.'
         }
         success {
