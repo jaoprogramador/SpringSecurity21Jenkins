@@ -1,6 +1,6 @@
 /**
  * Pipeline Declarativo para proyectos Java Spring Boot (Maven)
- * -----------------------------------------------------------
+ * ------------------------------------------------------------------
  * Asume que el archivo 'Dockerfile' está en la raíz del proyecto.
  * Requiere que el contenedor de Jenkins tenga acceso al Docker Daemon (DooD).
  */
