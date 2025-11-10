@@ -1,0 +1,107 @@
+/**
+ * Pipeline Declarativo para proyectos Java Spring Boot (Maven)
+ * -----------------------------------------------------------
+ * Asume que el archivo 'Dockerfile' está en la raíz del proyecto.
+ * Requiere que el contenedor de Jenkins tenga acceso al Docker Daemon (DooD).
+ */
+pipeline {
+    // -----------------------------------------------------------
+    // AGENTE: Usamos una imagen de Maven/Java para compilar el código.
+    // -----------------------------------------------------------
+    agent {
+        docker {
+            // Imagen ligera con Java y Maven para la compilación.
+            image 'maven:3.8.6-openjdk-17-slim' 
+            // Monta el socket de Docker del host para que la etapa 'Docker Build' pueda ejecutarse.
+            // Esto resuelve el error "Cannot connect to the Docker daemon".
+            args '-v /var/run/docker.sock:/var/run/docker.sock' 
+        }
+    }
+    
+    // -----------------------------------------------------------
+    // VARIABLES DE ENTORNO
+    // -----------------------------------------------------------
+    environment {
+        // Nombre de la imagen Docker final
+        APP_NAME = "users-api-rest" 
+        // Nombre del JAR (IMPORTANTE: Coincide con tu Dockerfile)
+        JAR_NAME = "users-api-0.0.1-SNAPSHOT.jar"
+        // Opciones de Maven, ignorando fallos en tests unitarios para permitir generar reportes.
+        MAVEN_OPTIONS = "-Dmaven.test.failure.ignore=true"
+    }
+
+    // -----------------------------------------------------------
+    // ETAPAS
+    // -----------------------------------------------------------
+    stages {
+        
+        stage('1. Checkout SCM') {
+            steps {
+                echo 'Obteniendo código del repositorio Git.'
+            }
+        }
+        
+        stage('2. Build, Tests y Empaquetado') {
+            steps {
+                echo 'Iniciando compilación y tests unitarios con Maven...'
+                // Limpia, compila, ejecuta tests y empaqueta el JAR.
+                sh "mvn clean package ${MAVEN_OPTIONS}"
+            }
+            post {
+                // Publica los resultados de los tests unitarios.
+                always {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
+        
+        stage('3. Construir Imagen Docker') {
+            steps {
+                script {
+                    // 1. Obtiene la versión actual del proyecto desde el pom.xml
+                    def appVersion = sh(returnStdout: true, script: "mvn help:evaluate -Dexpression=project.version -q -DforceStdout").trim()
+                    
+                    echo "Construyendo imagen Docker: ${APP_NAME}:${appVersion}"
+                    
+                    // 2. Ejecuta docker build:
+                    // El Dockerfile está en el contexto (.), y usa el JAR generado en la etapa anterior.
+                    sh "docker build -t ${APP_NAME}:${appVersion} ."
+                    
+                    // Opcional: Para el despliegue final, la imagen final es la "latest"
+                    sh "docker tag ${APP_NAME}:${appVersion} ${APP_NAME}:latest"
+                }
+            }
+        }
+        
+        stage('4. Despliegue Local (Opcional)') {
+            steps {
+                script {
+                    // Detiene y elimina cualquier contenedor existente con este nombre
+                    sh "docker stop ${APP_NAME} || true"
+                    sh "docker rm ${APP_NAME} || true"
+                    
+                    echo "Ejecutando contenedor ${APP_NAME} en el puerto 8080 del host..."
+                    // Ejecuta el contenedor con el puerto mapeado y en modo detached.
+                    sh "docker run -d --name ${APP_NAME} -p 8080:8080 ${APP_NAME}:latest"
+                }
+            }
+        }
+    }
+    
+    // -----------------------------------------------------------
+    // POST-BUILD (Acciones Finales)
+    // -----------------------------------------------------------
+    post {
+        always {
+            // Limpia el workspace al final de la ejecución.
+            deleteDir()
+            echo 'Pipeline de CI/CD para Java Finalizado.'
+        }
+        success {
+            echo '🎉 Build y Tests completados con Éxito.'
+        }
+        failure {
+            echo '❌ El Build falló. Revisar el log de la etapa "Build y Tests".'
+        }
+    }
+}
