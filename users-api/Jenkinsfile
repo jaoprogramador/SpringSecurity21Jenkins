@@ -10,7 +10,7 @@ pipeline {
     // -----------------------------------------------------------
     agent {
         docker {
-            // Imagen ligera con Java y Maven para la compilación.
+            // Imagen ligera con Java y Maven para la compilación. 
             image 'maven:3.8.6-openjdk-17-slim' 
             // Monta el socket de Docker del host para que la etapa 'Docker Build' pueda ejecutarse.
             // Esto resuelve el error "Cannot connect to the Docker daemon".
