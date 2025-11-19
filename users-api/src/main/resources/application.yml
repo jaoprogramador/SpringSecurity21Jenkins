@@ -3,12 +3,12 @@ spring:
     name: myapp
 
   datasource:
-    #url: jdbc:mysql://localhost:3305/mysqldbUSERS?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    url: jdbc:mysql://${DB_HOST}/${DB_NAME}?useSSL=false
-    #username: myapp
-    #password: myapp123
-    username: ${DB_USER}
-    password: ${DB_PASS}
+    url: jdbc:mysql://localhost:3305/mysqldbUSERS?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    #url: jdbc:mysql://${DB_HOST}/${DB_NAME}?useSSL=false
+    username: myapp
+    password: myapp123
+    #username: ${DB_USER}
+    #password: ${DB_PASS}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -34,3 +34,10 @@ management:
     web:
       exposure:
         include: health,info
+logging:
+  level:
+    root: INFO
+    org:
+      springframework: INFO
+  file:
+    name: logs/app.log

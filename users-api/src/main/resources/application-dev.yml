@@ -40,3 +40,10 @@ management:
     web:
       exposure:
         include: health,info,flyway
+logging:
+  level:
+    root: INFO
+    org:
+      springframework: INFO
+  file:
+    name: logs/app.log

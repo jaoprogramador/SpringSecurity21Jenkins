@@ -49,6 +49,18 @@
 		  <artifactId>spring-boot-starter-test</artifactId>
 		  <scope>test</scope>
 		</dependency>
+		<!-- Cliente de Elasticsearch -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+
+		<!-- Librería para logs en JSON -->
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>7.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

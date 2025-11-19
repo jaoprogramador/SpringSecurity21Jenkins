@@ -4,6 +4,7 @@
 	<section name="java.lang.Class">
 		<item key="replaceBarOpen" value="false"/>
 		<list key="findhistory">
+			<item value="Revisar el log de la etapa &quot;Build y Tests"/>
 			<item value="DASH"/>
 			<item value="ROOT"/>
 			<item value="app: springboot-k8s-mysql"/>
@@ -18,7 +19,6 @@
 			<item value="DB_USER"/>
 			<item value="initContainers"/>
 			<item value="args"/>
-			<item value="myapp"/>
 		</list>
 	</section>
 </section>
